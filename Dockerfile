@@ -17,9 +17,7 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install pdo_mysql zip gd intl
 
-RUN a2dismod mpm_event || true
-RUN a2dismod mpm_worker || true
-RUN a2enmod mpm_prefork
+
 RUN a2enmod rewrite
 
 
@@ -31,7 +29,7 @@ RUN composer install --no-dev --optimize-autoloader
 
 RUN chown -R www-data:www-data storage bootstrap/cache
 
-RUN php artisan config:clear
+# RUN php artisan config:clear
 
 ENV APACHE_DOCUMENT_ROOT=/var/www/html/public
 
@@ -40,6 +38,6 @@ RUN sed -ri -e 's!/var/www/html!${APACHE_DOCUMENT_ROOT}!g' \
     /etc/apache2/apache2.conf \
     /etc/apache2/conf-available/*.conf
 
-EXPOSE 10000
+EXPOSE 80
 
 CMD ["apache2-foreground"]
