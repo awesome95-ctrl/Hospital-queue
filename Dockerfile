@@ -35,16 +35,13 @@ RUN apt-get update \
     && docker-php-ext-configure gd --with-jpeg --with-freetype \
     && docker-php-ext-install -j"$(nproc)" \
         bcmath \
-        fileinfo \
         gd \
         intl \
-        pdo \
         pdo_mysql \
-        tokenizer \
         xml \
         zip \
-    && pecl install apcu \
-    && docker-php-ext-enable apcu \
+    # && pecl install apcu \
+    # && docker-php-ext-enable apcu \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Composer
