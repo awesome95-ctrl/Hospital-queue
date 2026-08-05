@@ -1,4 +1,4 @@
-FROM php:8.2-apache
+FROM php:8.2-apache-bookworm
 
 WORKDIR /var/www/html
 
@@ -31,5 +31,8 @@ RUN sed -ri 's!/var/www/html!/var/www/html/public!g' \
     /etc/apache2/sites-available/*.conf
 
 EXPOSE 80
+
+RUN ls /etc/apache2/mods-enabled | grep mpm || true
+
 
 CMD ["apache2-foreground"]
