@@ -48,10 +48,12 @@ RUN apt-get update \
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 COPY composer.json composer.lock ./
+COPY . ./
+
 RUN composer install --no-dev --optimize-autoloader --classmap-authoritative --prefer-dist --no-interaction
 
 # Copy application source and build assets
-COPY . ./
+
 COPY --from=assets /app/public/build /var/www/html/public/build
 
 RUN chown -R www-data:www-data /var/www/html \
