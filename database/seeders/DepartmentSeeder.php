@@ -11,30 +11,20 @@ class DepartmentSeeder extends Seeder
      * Run the database seeds.
      */
     public function run(): void
-{
-    \App\Models\Department::create([
-        'name' => 'General Consultation',
-        'code' => 'GC',
-    ]);
+    {
+        $departments = [
+            ['name' => 'General Consultation', 'code' => 'GC'],
+            ['name' => 'Dental Clinic', 'code' => 'DEN'],
+            ['name' => 'Eye Clinic', 'code' => 'EYE'],
+            ['name' => 'Laboratory', 'code' => 'LAB'],
+            ['name' => 'Pharmacy', 'code' => 'PHA'],
+        ];
 
-    \App\Models\Department::create([
-        'name' => 'Dental Clinic',
-        'code' => 'DEN',
-    ]);
-
-    \App\Models\Department::create([
-        'name' => 'Eye Clinic',
-        'code' => 'EYE',
-    ]);
-
-    \App\Models\Department::create([
-        'name' => 'Laboratory',
-        'code' => 'LAB',
-    ]);
-
-    \App\Models\Department::create([
-        'name' => 'Pharmacy',
-        'code' => 'PHA',
-    ]);
-}
+        foreach ($departments as $department) {
+            \App\Models\Department::updateOrCreate(
+                ['code' => $department['code']],
+                $department
+            );
+        }
+    }
 }
