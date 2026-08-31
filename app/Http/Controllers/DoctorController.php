@@ -10,7 +10,7 @@ class DoctorController extends Controller
 {
     public function index()
     {
-        abort_if(Auth::user()->role !== 'doctor', 403);
+        abort_if(! in_array(Auth::user()->role, ['doctor', 'admin'], true), 403);
 
         $waitingQueues = Queue::with(['user', 'department'])
             ->where('status', 'waiting')
@@ -18,12 +18,19 @@ class DoctorController extends Controller
             ->orderBy('joined_at')
             ->get();
 
-        return view('doctor.dashboard', compact('waitingQueues'));
+        $servedQueues = Queue::with(['user', 'department'])
+            ->where('status', 'serving')
+            ->whereDate('queue_date', today())
+            ->where('doctor_id', Auth::id())
+            ->orderBy('called_at')
+            ->get();
+
+        return view('doctor.dashboard', compact('waitingQueues', 'servedQueues'));
     }
 
     public function callNext(Queue $queue)
     {
-        abort_if(Auth::user()->role !== 'doctor', 403);
+        abort_unless(Auth::user()->role === 'receptionist' || Auth::user()->role === 'admin', 403);
 
         if ($queue->status !== 'waiting') {
             return back()->with('error', 'Only waiting patients can be called.');
@@ -39,7 +46,7 @@ class DoctorController extends Controller
 
     public function skip(Queue $queue)
     {
-        abort_if(Auth::user()->role !== 'doctor', 403);
+        abort_unless(Auth::user()->role === 'receptionist' || Auth::user()->role === 'admin', 403);
 
         if ($queue->status !== 'waiting') {
             return back()->with('error', 'Only waiting patients can be skipped.');
@@ -47,6 +54,7 @@ class DoctorController extends Controller
 
         $queue->update([
             'status' => 'skipped',
+            'skipped_at' => now(),
         ]);
 
         return back()->with('success', 'Patient has been skipped.');
@@ -54,14 +62,19 @@ class DoctorController extends Controller
 
     public function complete(Queue $queue)
     {
-        abort_if(Auth::user()->role !== 'doctor', 403);
+        abort_unless(Auth::user()->role === 'doctor' || Auth::user()->role === 'admin', 403);
 
         if ($queue->status === 'completed') {
             return back()->with('error', 'Queue is already completed.');
         }
 
+        if ($queue->status !== 'serving' && $queue->status !== 'waiting') {
+            return back()->with('error', 'Only serving or waiting patients can be completed.');
+        }
+
         $queue->update([
             'status' => 'completed',
+            'doctor_id' => Auth::id(),
             'completed_at' => now(),
         ]);
 

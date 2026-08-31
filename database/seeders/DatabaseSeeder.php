@@ -27,11 +27,22 @@ class DatabaseSeeder extends Seeder
         );
 
         User::updateOrCreate(
+            ['email' => 'receptionist@example.com'],
+            [
+                'first_name' => 'Reception',
+                'last_name' => 'Desk',
+                'phone' => '09171234568',
+                'password' => ('password'),
+                'role' => 'receptionist',
+            ]
+        );
+
+        User::updateOrCreate(
             ['email' => 'doctor@example.com'],
             [
                 'first_name' => 'Doctor',
                 'last_name' => 'Who',
-                'phone' => '09171234568',
+                'phone' => '09171234569',
                 'password' => ('password'),
                 'role' => 'doctor',
             ]
@@ -42,7 +53,7 @@ class DatabaseSeeder extends Seeder
             [
                 'first_name' => 'Admin',
                 'last_name' => 'User',
-                'phone' => '09171234569',
+                'phone' => '09171234570',
                 'password' => ('password'),
                 'role' => 'admin',
             ]

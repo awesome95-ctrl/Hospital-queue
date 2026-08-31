@@ -16,6 +16,7 @@ return new class extends Migration
 
         $table->foreignId('user_id')->constrained()->cascadeOnDelete();
         $table->foreignId('department_id')->constrained()->cascadeOnDelete();
+        $table->foreignId('doctor_id')->nullable()->constrained('users')->nullOnDelete();
 
         $table->string('queue_number');
         $table->date('queue_date');
@@ -25,12 +26,15 @@ return new class extends Migration
             'serving',
             'skipped',
             'completed',
-            'cancelled'
+            'cancelled',
+            'closed'
         ])->default('waiting');
 
         $table->timestamp('joined_at')->useCurrent();
         $table->timestamp('called_at')->nullable();
+        $table->timestamp('skipped_at')->nullable();
         $table->timestamp('completed_at')->nullable();
+        $table->timestamp('cancelled_at')->nullable();
 
         $table->timestamps();
     });

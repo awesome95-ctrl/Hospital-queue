@@ -6,6 +6,7 @@ use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\QueueController;
+use App\Http\Controllers\ReceptionistController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -17,6 +18,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', function () {
         return match (Auth::user()->role) {
             'doctor' => redirect()->route('doctor.dashboard'),
+            'receptionist' => redirect()->route('receptionist.dashboard'),
             'admin' => redirect()->route('admin.dashboard'),
             default => redirect()->route('patient.dashboard'),
         };
@@ -33,8 +35,22 @@ Route::middleware('auth')->group(function () {
     Route::post('/queue/join/{department}', [QueueController::class, 'join'])
         ->name('queue.join');
 
+    Route::post('/queue/cancel/{queue}', [QueueController::class, 'cancel'])
+        ->name('queue.cancel');
+
     Route::get('/queue/{queue}', [QueueController::class, 'show'])
         ->name('queue.show');
+
+    Route::get('/queue/{queue}/status', [QueueController::class, 'status'])
+        ->name('queue.status');
+
+    // Receptionist
+    Route::get('/receptionist', [ReceptionistController::class, 'index'])
+        ->name('receptionist.dashboard');
+    Route::post('/receptionist/call/{queue}', [ReceptionistController::class, 'callNext'])
+        ->name('receptionist.call');
+    Route::post('/receptionist/skip/{queue}', [ReceptionistController::class, 'skip'])
+        ->name('receptionist.skip');
 
     // Doctor
     Route::get('/doctor', [DoctorController::class, 'index'])
