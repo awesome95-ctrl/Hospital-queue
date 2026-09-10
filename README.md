@@ -8,20 +8,20 @@ The system allows patients to join queues digitally while giving receptionists, 
 
 ### Patient Department Selection
 
-![Patient Department Selection](screenshots/patient-home.png)
+![Patient Department Selection](Screenshots/Patient-Dashboard.png)
 
 
 ### Receptionist Dashboard
 
-![Receptionist Dashboard](screenshots/Receptionist-dashboard.png)
+![Receptionist Dashboard](Screenshots/Receptionist-Dashboard.png)
 
 ### Doctor Dashboard
 
-![Doctor Dashboard](screenshots/Doctor-dashboard.png)
+![Doctor Dashboard](Screenshots/Doctor-dashboard.png)
 
 ### Admin Dashboard
 
-![Admin Dashboard](screenshots/Admin-dashboard.png)
+![Admin Dashboard](Screenshots/Admin-Dashboard.png)
 
 ## Features
 
