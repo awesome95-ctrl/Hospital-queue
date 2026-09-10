@@ -1,59 +1,171 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# CareQueue
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+CareQueue is a hospital queue management system built with Laravel to simplify patient flow and improve how hospital departments manage queues.
 
-## About Laravel
+The system allows patients to join queues digitally while giving receptionists, doctors, and administrators the tools they need to manage patients and hospital queue operations.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Screenshots
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Patient Department Selection
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+![Patient Department Selection](screenshots/patient-home.png)
 
-## Learning Laravel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+### Receptionist Dashboard
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+![Receptionist Dashboard](screenshots/Receptionist-dashboard.png)
 
-## Laravel Sponsors
+### Doctor Dashboard
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+![Doctor Dashboard](screenshots/Doctor-dashboard.png)
 
-### Premium Partners
+### Admin Dashboard
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+![Admin Dashboard](screenshots/Admin-dashboard.png)
 
-## Contributing
+## Features
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+* Patient registration and authentication
+* Department selection
+* Digital queue number generation
+* Patient queue tracking
+* Queue position management
+* Receptionist queue management
+* Doctor patient management
+* Role-based access control
+* Administrator management
+* Patient status tracking
+* Secure authentication
+* Responsive user interface
 
-## Code of Conduct
+## User Roles
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### Patient
 
-## Security Vulnerabilities
+Patients can:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+* Register and log in to the system
+* Select a hospital department
+* Join a department queue
+* Receive a queue number
+* View their position in the queue
+* Track their queue status
 
-## License
+### Receptionist
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Receptionists can:
+
+* View patients waiting in queues
+* Manage department queues
+* Call the next patient
+* Update patient queue status
+* Manage the flow of patients through the queue
+
+### Doctor
+
+Doctors can:
+
+* View patients waiting to be attended to
+* View their assigned queue
+* Manage patients being attended to
+* Update patient status as they progress through the queue
+
+### Administrator
+
+Administrators can:
+
+* Manage system users
+* Manage hospital departments
+* Monitor queue activity
+* Manage system operations
+* Access administrative functionality
+
+## How It Works
+
+1. A patient logs into CareQueue.
+2. The patient selects the department they need.
+3. CareQueue assigns the patient a queue number.
+4. The patient can monitor their position in the queue.
+5. Receptionists manage patients waiting in each department.
+6. Doctors attend to patients as they reach the front of the queue.
+7. Patient queue statuses are updated throughout the process.
+
+## Tech Stack
+
+* **Framework:** Laravel
+* **Language:** PHP
+* **Database:** MySQL
+* **Frontend:** Blade, HTML, CSS, JavaScript
+* **Styling:** Tailwind CSS
+* **Authentication:** Laravel Breeze
+* **Development Environment:** XAMPP
+
+## Project Structure
+
+The application follows Laravel's MVC architecture.
+
+```text
+app/
+├── Http/
+│   ├── Controllers/
+│   └── Middleware/
+├── Models/
+└── ...
+
+database/
+├── migrations/
+└── seeders/
+
+resources/
+├── views/
+├── css/
+└── js/
+
+routes/
+└── web.php
+```
+
+
+## Live Demo
+
+**CareQueue:** https://hospital-queue-zgwa.onrender.com
+
+> Note: The live demo may occasionally be unavailable when its database hosting service is suspended.
+
+## Purpose of the Project
+
+CareQueue was developed as a practical Laravel project to solve a real-world problem in hospital operations: managing patient queues efficiently.
+
+The project demonstrates the implementation of:
+
+* Laravel MVC architecture
+* Database relationships
+* Authentication
+* Role-based authorization
+* CRUD operations
+* Queue management logic
+* Middleware
+* Dynamic Blade views
+* MySQL database management
+* Responsive web application development
+
+## Future Improvements
+
+Potential future improvements include:
+
+* Real-time queue updates
+* SMS or email notifications
+* Estimated waiting time
+* Appointment scheduling
+* Hospital analytics and reporting
+* Multiple hospital branches
+* Improved queue prioritization
+* Mobile application support
+
+## Author
+
+**Fortune Charles**
+
+Software Engineering Student & Backend Developer
+
+Built with Laravel, PHP, MySQL, and a focus on solving practical problems through software.
